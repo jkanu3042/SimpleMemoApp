@@ -19,4 +19,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.memo_list , name='memo_list'),
+    url(r'^create/$', views.memo_create, name='memo_create')
 ]

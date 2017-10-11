@@ -1,5 +1,8 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
+
 from .models import Memo
+from .forms import MemoCreateForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
@@ -21,3 +24,9 @@ def memo_list(request):
     return render(request, 'post/memo_list.html', {
         'memo_list': memo_lst,
     })
+
+class MemoCreateView(CreateView):
+    model = Memo
+    form_class = MemoCreateForm
+
+memo_create = MemoCreateView.as_view
