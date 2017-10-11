@@ -1,0 +1,27 @@
+{% extends "post/layouts.html" %}
+{% load imagekit %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>{{ memo.title }}</h2>
+                <h5><span class="glyphicon glyphicon-time"></span> Post by {{ memo.author }}, {{ memo.created_at }}</h5>
+                <h5><span class="label label-danger">Food</span> <span class="label label-primary">Ipsum</span></h5><br>
+
+                {% thumbnail "500x500" memo.photo -- class="img-thumbnail center-block" %}
+                <br><br>
+
+                <p style="font-size:15px;">{{ memo.content }}</p>
+
+                <br><br>
+                <hr />
+                    <a href="{% url "post:memo_list" %}" class="btn btn-primary">목록</a>
+                    <a href="#" class="btn btn-primary">수정</a>
+                    <a href="#" class="btn btn-primary">삭제</a>
+                <hr />
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

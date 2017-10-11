@@ -1,43 +1,62 @@
 {% extends "post/layouts.html" %}
-
+{% load imagekit %}
+{% load static %}
 {% block content %}
+    <div class="container">
+        <div class="row">
+        <div class="col-sm-12">
+            {% for memo in memo_list %}
+                <div class="col-sm-4">
+                    <div class="ui card">
+                        <a class="image" href="{% url "post:memo_detail" memo.pk %}">
+                            {% if memo.photo %}
+                                {% thumbnail "200x200" memo.photo %}
+                            {% else %}
+                                <div align="center">
+                                    <img src="{% static "img/none.png" %}" style="width:200px;height:200px"/>
+                                </div>
+                            {% endif %}
+                        </a>
+                        <div class="content">
+                            <a class="header" href="{% url "post:memo_detail" memo.pk %}">{{ memo.title }}</a>
+                            <div class="meta">
+                                <a><small>by.</small>{{ memo.author }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            {% endfor %}
 
-    {% for memo in memo_list %}
-        <div class="col-sm-4">
-            {{ memo.id }}
-            {{ memo.title }}
-            {{ memo.content }}
-            {{ memo.author }}
-            {{ memo.updated_at }}
+
+        {#    pagenation part   #}
+        {% if memo_list.has_other_pages %}
+            <div class="center-block">
+                <ul class="pagination">
+                {% if memo_list.has_previous %}
+                    <li><a href="?page={{ memo_list.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+
+                {% for i in memo_list.paginator.page_range %}
+                    {% if memo_list.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if memo_list.has_next %}
+                    <li><a href="?page={{ memo_list.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+            </div>
+        {% endif %}
         </div>
-    {% endfor %}
-
-
-    {#    pagenation part   #}
-    {% if memo_list.has_other_pages %}
-    <ul class="pagination">
-        {% if memo_list.has_previous %}
-            <li><a href="?page={{ memo_list.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-            <li class="disabled"><span>&laquo;</span></li>
-        {% endif %}
-
-        {% for i in memo_list.paginator.page_range %}
-            {% if memo_list.number == i %}
-                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-            {% else %}
-                <li><a href="?page={{ i }}">{{ i }}</a></li>
-            {% endif %}
-        {% endfor %}
-
-        {% if memo_list.has_next %}
-            <li><a href="?page={{ memo_list.next_page_number }}">&raquo;</a></li>
-        {% else %}
-            <li class="disabled"><span>&raquo;</span></li>
-        {% endif %}
-
-    </ul>
-    {% endif %}
-
+       </div>
+    </div>
 {% endblock %}
 

@@ -17,7 +17,7 @@ class Memo(models.Model):
     photo = models.ImageField(blank=True, upload_to='post/memo/%Y/%m/%d')
     photo_thumbnail = ImageSpecField(
                             source='photo',
-                            processors=[Thumbnail(100, 50)],
+                            processors=[Thumbnail(300, 300)],
                             format='JPEG',
                             options={'quality': 60})
     created_at = models.DateTimeField(auto_now_add=True)
@@ -29,3 +29,5 @@ class Memo(models.Model):
     def get_absolute_url(self):
         return reverse('post:memo_detail', args=[self.pk])
 
+    class Meta:
+        ordering =['-id']

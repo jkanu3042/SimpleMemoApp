@@ -45,7 +45,9 @@ INSTALLED_APPS = [
 
     #installed components
     'django_extensions',
-    'imagekit'
+    'imagekit',
+    'bootstrap3',
+
 
 ]
 
@@ -132,7 +134,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'front_django', 'static'),
+    os.path.join(BASE_DIR, 'SimplePhotoMemo', 'static'),
     os.path.join(BASE_DIR, 'bower_components'),
 ]
 

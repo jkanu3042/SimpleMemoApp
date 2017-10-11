@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic import CreateView, DetailView
 
 from .models import Memo
 from .forms import MemoCreateForm
@@ -29,4 +29,13 @@ class MemoCreateView(CreateView):
     model = Memo
     form_class = MemoCreateForm
 
-memo_create = MemoCreateView.as_view
+memo_create = MemoCreateView.as_view()
+
+
+class MemoDetailView(DetailView):
+    model = Memo
+
+memo_detail = MemoDetailView.as_view()
+
+
+

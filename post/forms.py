@@ -5,5 +5,5 @@ class MemoCreateForm(forms.ModelForm):
 
     class Meta:
         model = Memo
-        fields = ['title', 'content', 'photo']
+        fields = ['author','title', 'content', 'photo']
 
