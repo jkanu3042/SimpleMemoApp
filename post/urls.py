@@ -21,5 +21,7 @@ urlpatterns = [
     url(r'^$', views.memo_list , name='memo_list'),
     url(r'^memo/create/$', views.memo_create, name='memo_create'),
     url(r'^memo/(?P<pk>\d+)/$', views.memo_detail, name='memo_detail'),
+    url(r'^memo/(?P<pk>\d+)/edit/$', views.memo_edit, name='memo_edit'),
+    url(r'^memo/(?P<pk>\d+)/delete/$', views.memo_delete, name='memo_delete'),
 
 ]

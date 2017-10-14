@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.views.generic import CreateView, DetailView
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, resolve_url
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
 from .models import Memo
 from .forms import MemoCreateForm
@@ -38,4 +39,16 @@ class MemoDetailView(DetailView):
 memo_detail = MemoDetailView.as_view()
 
 
+class MemoUpdateView(UpdateView):
+    model = Memo
+    fields = ['__all__']
 
+memo_edit = MemoUpdateView.as_view()
+
+class MemoDeleteView(DeleteView):
+    model = Memo
+
+    def get_success_url(self):
+        return resolve_url(self.object.memo)
+
+memo_delete = MemoDeleteView.as_view()

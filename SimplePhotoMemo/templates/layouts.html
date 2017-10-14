@@ -15,15 +15,17 @@
           <a class="navbar-brand" href="{% url "post:memo_list" %}">SimpleMemoApp</a>
         </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">Page 1</a></li>
-          <li><a href="#">Page 2</a></li>
-          <li><a href="#">Page 3</a></li>
+          <li class="active"><a href="{% url "post:memo_list" %}">Memo</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="{% url "post:memo_create" %}">New Memo</a>
-            <li><a href="#">회원가입</a></li>
-            <li><a href="#">로그인</a></li>
+            <li><a href="{% url "post:memo_create" %}" class="btn btn-default">New Memo</a>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url "accounts:profile_detail" %}">프로필</a></li>
+                    <li><a href="{% url "accounts:logout" %}?next={{ request.path }}">로그아웃</a></li>
+                {% else %}
+                    <li><a href="{% url "accounts:login" %}?next={{ request.path }}">로그인</a></li>
+                    <li><a href="{% url "accounts:signup" %}">회원가입</a></li>
+                {% endif %}
         </ul>
       </div>
     </nav>

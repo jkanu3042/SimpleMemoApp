@@ -1,0 +1,9 @@
+django,
+ipython['notebook']
+django-extensions
+Pillow
+PILKit
+django-imagekit
+django-bootstrap3
+
+

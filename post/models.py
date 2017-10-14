@@ -20,6 +20,8 @@ class Memo(models.Model):
                             processors=[Thumbnail(300, 300)],
                             format='JPEG',
                             options={'quality': 60})
+    tag_set = models.ManyToManyField('Tag', blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -31,3 +33,20 @@ class Memo(models.Model):
 
     class Meta:
         ordering =['-id']
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL) #user
+    post = models.ForeignKey(Memo) #post_id 생성
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.message
